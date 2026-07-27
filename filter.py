@@ -5,12 +5,27 @@ import sys
 import argparse
 import requests
 from urllib3.exceptions import InsecureRequestWarning
+from urllib.parse import urlparse
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 DB_DIR = "DB"
 MAX_WORKERS = 50
 TIMEOUT = 10
+
+def filter_unique_domains(urls):
+    seen_domains = set()
+    unique_urls = []
+    for url in urls:
+        try:
+            parsed = urlparse(url)
+            domain = parsed.netloc
+            if domain and domain not in seen_domains:
+                seen_domains.add(domain)
+                unique_urls.append(url)
+        except Exception:
+            unique_urls.append(url)
+    return unique_urls
 
 def has_frame_blocker_headers(url):
     headers = {"User-Agent": "Mozilla/5.0"}
@@ -60,7 +75,9 @@ def process_file(file_path):
         print(f"No URLs found in {file_path}.")
         return None
 
-    print(f"Found {len(urls)} URLs. Checking iframe blocking headers...")
+    print(f"Found {len(urls)} URLs. Filtering unique domains...")
+    urls = filter_unique_domains(urls)
+    print(f"After unique domain filter: {len(urls)} URLs. Checking iframe blocking headers...")
 
     keep_urls = []
     blocked_count = 0

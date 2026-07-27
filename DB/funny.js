@@ -6,7 +6,6 @@ var DB_FUNNY = [
   "https://www.funnyordie.com",
   "https://www.cracked.com",
   "https://www.failblog.com",
-  "https://www.damnyouautocorrect.com",
   "https://www.passiveaggressivenotes.com",
   "https://www.regretfuls.com",
   "https://www.whitepeoplegifs.com",

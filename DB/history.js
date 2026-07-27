@@ -1,7 +1,10 @@
 var DB_HISTORY = [
-  "https://www.history.com/",
-  "https://www.britannica.com/",
-  "https://www.archives.gov/",
-  "https://www.smithsonianmag.com/history",
-  "https://www.loc.gov/"
+  "https://www.nps.gov/history",
+  "https://www.nationalgeographic.com/history",
+  "https://www.historytoday.com/",
+  "https://www.historylearningsite.co.uk/",
+  "https://www.historychannel.com/",
+  "https://www.historynet.com/",
+  "https://www.historyvault.com/",
+  "https://www.historyhit.com/",
 ];

@@ -11,7 +11,6 @@ var DB_SPORTS = [
   "https://www.seriea.it",
   "https://www.bundesliga.com",
   "https://www.ligue1.com",
-  "https://www.ligue1.com",
   "https://www.eurosport.com",
   "https://www.dazn.com",
   "https://www.twitter.com/The Masters",

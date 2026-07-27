@@ -1,7 +1,18 @@
 var DB_SOCIAL = [
-  "https://www.facebook.com/",
-  "https://twitter.com/",
-  "https://www.instagram.com/",
-  "https://www.linkedin.com/",
-  "https://www.reddit.com/"
+  "https://www.dailymotion.com/",
+  "https://www.yelp.com/",
+  "https://www.tripadvisor.com/",
+  "https://www.friendster.com/",
+  "https://www.orkut.com/",
+  "https://plus.google.com/",
+  "https://www.disqus.com/",
+  "https://www.squarespace.com/",
+  "https://www.wix.com/",
+  "https://www.gitlab.com/",
+  "https://www.mixcloud.com/",
+  "https://www.bandcamp.com/",
+  "https://www.pandora.com/",
+  "https://www.iheart.com/",
+  "https://www.tidal.com/",
+  "https://www.napster.com/",
 ];

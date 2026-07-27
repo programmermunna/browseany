@@ -1,7 +1,19 @@
 var DB_FILMFESTIVALS = [
   "https://www.sundance.org/",
-  "https://www.festival-cannes.com/",
-  "https://www.berlinale.de/",
   "https://www.telluridefilmfestival.org/",
-  "https://www.tiff.net/"
+  "https://www.venicefilmfestival.org/",
+  "https://www.sxsw.com/festivals",
+  "https://www.torontofilmfestival.ca/",
+  "https://www.nyfilmfestival.com/",
+  "https://www.lafilmfestival.com/",
+  "https://www.seattlefilmfestival.org/",
+  "https://www.austinfilmfestival.com/",
+  "https://www.miff.com.au/",
+  "https://www.edfilmfest.org.uk/",
+  "https://www.veneziafestival.it/en/",
+  "https://www.nyff.com/",
+  "https://www.lafilmfest.org/",
+  "https://www.seattlefilmfestival.com/",
+  "https://www.iff Rotterdam.nl/",
+  "https://www.pardo.ch/",
 ];
