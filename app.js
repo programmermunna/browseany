@@ -12,13 +12,42 @@
      URL arrays loaded from DB/*.js files
      ---------------------------------------------------------- */
   const DB_DATA = {
-    general: { urls: DB_GENERAL, label: 'General' },
-    tools: { urls: DB_TOOLS, label: 'Tools' },
-    games: { urls: DB_GAMES, label: 'Games' },
-    art: { urls: DB_ART, label: 'Art' },
-    funny: { urls: DB_FUNNY, label: 'Funny' },
-    sports: { urls: DB_SPORTS, label: 'Sports' },
-    news: { urls: DB_NEWS, label: 'News' }
+    general: { urls: DB_GENERAL, label: 'General', group: 'General' },
+    tools: { urls: DB_TOOLS, label: 'Tools', group: 'Technology' },
+    games: { urls: DB_GAMES, label: 'Games', group: 'Entertainment' },
+    art: { urls: DB_ART, label: 'Art', group: 'Culture' },
+    funny: { urls: DB_FUNNY, label: 'Funny', group: 'Entertainment' },
+    sports: { urls: DB_SPORTS, label: 'Sports', group: 'Entertainment' },
+    news: { urls: DB_NEWS, label: 'News', group: 'Media' },
+    education: { urls: DB_EDUCATION, label: 'Education', group: 'Learning' },
+    health: { urls: DB_HEALTH, label: 'Health', group: 'Lifestyle' },
+    finance: { urls: DB_FINANCE, label: 'Finance', group: 'Business' },
+    travel: { urls: DB_TRAVEL, label: 'Travel', group: 'Lifestyle' },
+    food: { urls: DB_FOOD, label: 'Food', group: 'Lifestyle' },
+    music: { urls: DB_MUSIC, label: 'Music', group: 'Entertainment' },
+    shopping: { urls: DB_SHOPPING, label: 'Shopping', group: 'Lifestyle' },
+    technology: { urls: DB_TECHNOLOGY, label: 'Technology', group: 'Media' },
+    science: { urls: DB_SCIENCE, label: 'Science', group: 'Learning' },
+    social: { urls: DB_SOCIAL, label: 'Social', group: 'Media' },
+    business: { urls: DB_BUSINESS, label: 'Business', group: 'Business' },
+    programming: { urls: DB_PROGRAMMING, label: 'Programming', group: 'Technology' },
+    design: { urls: DB_DESIGN, label: 'Design', group: 'Technology' },
+    photography: { urls: DB_PHOTOGRAPHY, label: 'Photography', group: 'Technology' },
+    movies: { urls: DB_MOVIES, label: 'Movies', group: 'Entertainment' },
+    books: { urls: DB_BOOKS, label: 'Books', group: 'Learning' },
+    fitness: { urls: DB_FITNESS, label: 'Fitness', group: 'Lifestyle' },
+    crypto: { urls: DB_CRYPTO, label: 'Crypto', group: 'Business' },
+    environment: { urls: DB_ENVIRONMENT, label: 'Environment', group: 'Culture' },
+    history: { urls: DB_HISTORY, label: 'History', group: 'Culture' },
+    comedy: { urls: DB_COMEDY, label: 'Comedy', group: 'Entertainment' },
+    tvshows: { urls: DB_TVSHOWS, label: 'TV Shows', group: 'Entertainment' },
+    celebrities: { urls: DB_CELEBRITIES, label: 'Celebrities', group: 'Entertainment' },
+    gamingnews: { urls: DB_GAMINGNEWS, label: 'Gaming News', group: 'Entertainment' },
+    streaming: { urls: DB_STREAMING, label: 'Streaming', group: 'Entertainment' },
+    animation: { urls: DB_ANIMATION, label: 'Animation', group: 'Entertainment' },
+    anime: { urls: DB_ANIME, label: 'Anime', group: 'Entertainment' },
+    cartoons: { urls: DB_CARTOONS, label: 'Cartoons', group: 'Entertainment' },
+    filmfestivals: { urls: DB_FILMFESTIVALS, label: 'Film Festivals', group: 'Entertainment' }
   };
 
   
@@ -86,11 +115,37 @@
     allOption.textContent = 'All categories';
     categorySelect.appendChild(allOption);
 
+    // Group categories by group property
+    const groups = {};
     for (const [key, data] of Object.entries(DB_DATA)) {
-      const opt = document.createElement('option');
-      opt.value = key;
-      opt.textContent = data.label;
-      categorySelect.appendChild(opt);
+      const groupName = data.group || 'Other';
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push({ key, label: data.label });
+    }
+
+    // Sort groups alphabetically
+    const sortedGroups = Object.keys(groups).sort();
+
+    // Create optgroups and add sorted categories
+    for (const groupName of sortedGroups) {
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = groupName;
+
+      // Sort categories within group alphabetically
+      const sortedCategories = groups[groupName].sort((a, b) =>
+        a.label.localeCompare(b.label)
+      );
+
+      for (const category of sortedCategories) {
+        const opt = document.createElement('option');
+        opt.value = category.key;
+        opt.textContent = category.label;
+        optgroup.appendChild(opt);
+      }
+
+      categorySelect.appendChild(optgroup);
     }
 
     categorySelect.value = 'all';

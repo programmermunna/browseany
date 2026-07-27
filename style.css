@@ -250,9 +250,23 @@ body{
   font-size: 0.75rem;
   outline: none;
   cursor: pointer;
-  min-width: 100px;
+  min-width: 200px;
+  max-height: 400px;
 }
 .ctl-select option{ background: #fff; color: #333; }
+.ctl-select optgroup{
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: rgba(139, 108, 255, 0.08);
+  padding: 4px 8px;
+}
+
+/* Custom scrollbar for select dropdown */
+.ctl-select::-webkit-scrollbar { width: 12px; }
+.ctl-select::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); border-radius: 6px; }
+.ctl-select::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 6px; }
+.ctl-select::-webkit-scrollbar-thumb:hover { background: #8a9aa58a; }
 
 /* ---- Random buttons (signature element) ----
    Two distinct gradients so the eye can tell "DB" (curated,
