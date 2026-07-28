@@ -1,9 +1,6 @@
 var DB_SCIENCE = [
   "https://www.nature.com/",
   "https://www.popsci.com/",
-  "https://www.newscientist.com/",
-  "https://www.noaa.gov/",
-  "https://www.cdc.gov/",
   "https://www.cern.ch/",
   "https://home.cern/",
   "https://www.esa.int/",

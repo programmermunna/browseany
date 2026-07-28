@@ -1,8 +1,6 @@
 var DB_MUSIC = [
-  "https://www.bandcamp.com/",
   "https://www.pandora.com/",
   "https://www.iheart.com/",
-  "https://www.tidal.com/",
   "https://www.napster.com/",
   "https://www.pitchfork.com/",
   "https://www.consequence.net/",
@@ -12,10 +10,6 @@ var DB_MUSIC = [
   "https://www.ticketfly.com/",
   "https://www.vevo.com/",
   "https://www.azlyrics.com/",
-  "https://www.lyrics.com/",
   "https://www.lyricsmode.com/",
-  "https://www.metrolyrics.com/",
-  "https://www.songsterr.com/",
   "https://www.musictech.net/",
-  "https://www.computer-music.co.uk/",
 ];

@@ -27,7 +27,7 @@ def filter_unique_domains(urls):
             unique_urls.append(url)
     return unique_urls
 
-def has_frame_blocker_headers(url):
+def should_filter_url(url):
     headers = {"User-Agent": "Mozilla/5.0"}
     try:
         response = requests.head(
@@ -47,7 +47,10 @@ def has_frame_blocker_headers(url):
                 headers=headers
             )
         except requests.RequestException:
-            return False
+            return True
+
+    if response.status_code != 200:
+        return True
 
     for key in response.headers:
         lower_key = key.lower()
@@ -77,18 +80,18 @@ def process_file(file_path):
 
     print(f"Found {len(urls)} URLs. Filtering unique domains...")
     urls = filter_unique_domains(urls)
-    print(f"After unique domain filter: {len(urls)} URLs. Checking iframe blocking headers...")
+    print(f"After unique domain filter: {len(urls)} URLs. Checking live status and iframe blocking headers...")
 
     keep_urls = []
-    blocked_count = 0
+    filtered_count = 0
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        results = zip(urls, executor.map(has_frame_blocker_headers, urls))
-        for url, blocked in results:
-            if blocked:
-                print(f"[BLOCKED] {url}")
-                blocked_count += 1
+        results = zip(urls, executor.map(should_filter_url, urls))
+        for url, filtered in results:
+            if filtered:
+                print(f"[FILTERED] {url}")
+                filtered_count += 1
             else:
-                print(f"[OK]      {url}")
+                print(f"[OK]       {url}")
                 keep_urls.append(url)
 
     new_content = f"{var_declaration} {var_name} = [\n"
@@ -105,7 +108,7 @@ def process_file(file_path):
         "file": os.path.basename(file_path),
         "total": len(urls),
         "kept": len(keep_urls),
-        "blocked": blocked_count
+        "filtered": filtered_count
     }
 
 def main():
@@ -140,13 +143,13 @@ def main():
         print("=" * 60)
         total_urls = sum(r["total"] for r in results)
         total_kept = sum(r["kept"] for r in results)
-        total_blocked = sum(r["blocked"] for r in results)
+        total_filtered = sum(r["filtered"] for r in results)
         
         for r in results:
-            print(f"{r['file']}: {r['kept']}/{r['total']} kept ({r['blocked']} blocked)")
+            print(f"{r['file']}: {r['kept']}/{r['total']} kept ({r['filtered']} filtered)")
         
         print("-" * 60)
-        print(f"TOTAL: {total_kept}/{total_urls} kept ({total_blocked} blocked)")
+        print(f"TOTAL: {total_kept}/{total_urls} kept ({total_filtered} filtered)")
         print("=" * 60)
 
 if __name__ == "__main__":

@@ -1,6 +1,4 @@
 var DB_SPORTS = [
-  "https://sportsillustrated.cnn.com",
-  "https://www.bleacherreport.com",
   "https://www.si.com",
   "https://www.nfl.com",
   "https://www.olympics.com",
@@ -8,10 +6,7 @@ var DB_SPORTS = [
   "https://www.usopen.org",
   "https://www.wimbledon.com",
   "https://www.premierleague.com",
-  "https://www.seriea.it",
   "https://www.bundesliga.com",
   "https://www.ligue1.com",
-  "https://www.eurosport.com",
   "https://www.dazn.com",
-  "https://www.twitter.com/The Masters",
 ];

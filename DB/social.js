@@ -1,8 +1,5 @@
 var DB_SOCIAL = [
   "https://www.dailymotion.com/",
-  "https://www.yelp.com/",
-  "https://www.tripadvisor.com/",
-  "https://www.friendster.com/",
   "https://www.orkut.com/",
   "https://plus.google.com/",
   "https://www.disqus.com/",
@@ -10,9 +7,7 @@ var DB_SOCIAL = [
   "https://www.wix.com/",
   "https://www.gitlab.com/",
   "https://www.mixcloud.com/",
-  "https://www.bandcamp.com/",
   "https://www.pandora.com/",
   "https://www.iheart.com/",
-  "https://www.tidal.com/",
   "https://www.napster.com/",
 ];
