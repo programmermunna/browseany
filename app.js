@@ -50,6 +50,20 @@
     filmfestivals: { urls: DB_FILMFESTIVALS, label: 'Film Festivals', group: 'Entertainment' }
   };
 
+  // Popularity ranking for the category dropdown — higher appears first.
+  const CATEGORY_POPULARITY = {
+    general: 100, games: 95, news: 90, anime: 88, movies: 86, music: 85,
+    tools: 84, sports: 82, streaming: 80, tvshows: 78, funny: 76, comedy: 74,
+    social: 72, technology: 70, programming: 68, gamingnews: 66, cartoons: 64,
+    celebrities: 62, design: 60, photography: 58, animation: 56, food: 54,
+    shopping: 52, health: 50, fitness: 48, education: 46, books: 44,
+    science: 42, travel: 40, business: 38, finance: 36, crypto: 34,
+    environment: 32, history: 30, art: 28, filmfestivals: 26
+  };
+
+  function categoryPopularity(key) {
+    return CATEGORY_POPULARITY[key] || 0;
+  }
   
   /* ----------------------------------------------------------
      3. STATE
@@ -128,17 +142,19 @@
       groups[groupName].push({ key, label: data.label });
     }
 
-    // Sort groups alphabetically
-    const sortedGroups = Object.keys(groups).sort();
+    // Sort groups by their most popular member
+    const sortedGroups = Object.keys(groups).sort((a, b) =>
+      Math.max(...groups[b].map(c => categoryPopularity(c.key))) -
+      Math.max(...groups[a].map(c => categoryPopularity(c.key)))
+    );
 
-    // Create optgroups and add sorted categories
+    // Create optgroups and add categories sorted by popularity
     for (const groupName of sortedGroups) {
       const optgroup = document.createElement('optgroup');
       optgroup.label = groupName;
 
-      // Sort categories within group alphabetically
-      const sortedCategories = groups[groupName].sort((a, b) =>
-        a.label.localeCompare(b.label)
+      const sortedCategories = groups[groupName].sort(
+        (a, b) => categoryPopularity(b.key) - categoryPopularity(a.key)
       );
 
       for (const category of sortedCategories) {
