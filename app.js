@@ -397,6 +397,7 @@
 
     if (pool.length === 0) {
       randomDbBtn.disabled = false;
+      randomDbIcon.classList.remove('animate-spin');
       return;
     }
 
