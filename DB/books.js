@@ -93,7 +93,6 @@ var DB_BOOKS = [
   "https://www.ugapress.org/",
   "https://www.floodeditions.com/",
   "https://www.elephantrockbooks.com/",
-  "https://www.bantam.co.uk/",
   "https://www.readingagency.org.uk/reading",
   "https://www.writersdigest.com/",
   "https://www.writermag.com/",

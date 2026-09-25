@@ -68,7 +68,6 @@ var DB_ANIME = [
   "https://www.khara.co.jp/",
   "https://www.knock.co.jp/",
   "https://www.millepensee.com/",
-  "https://www.m-sc.co.jp/",
   "https://www.mushi-pro.co.jp/",
   "https://www.studio-coco.com/",
   "https://www.sublimation.co.jp/",
