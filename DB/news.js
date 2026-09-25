@@ -48,7 +48,6 @@ var DB_NEWS = [
   "https://www.dainiktribune.com",
   "https://www.sandeshnews.com",
   "https://www.akila.com",
-  "https://www.phoolchand.com",
   "https://www.kashmirmirror.com",
   "https://www.dailyexcelsior.com",
   "https://www.bengalchronicle.com",
