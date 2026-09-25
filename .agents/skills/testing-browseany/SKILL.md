@@ -20,7 +20,9 @@ description: How to run and browser-test the Browse Any static site on this box,
 - Devin's managed Chrome runs under `devin-remote` on CDP port **29229**. `google-chrome <url>` (bare URL, no flags) opens a tab in THAT browser — use only this form.
 - Launching chrome with flags (e.g. `google-chrome --new-window <url>`) bypasses the shim and spawns an unmanaged instance the `browser_console`/`read_dom` tools cannot see. Closing the last window of the managed instance kills it and devin-remote does NOT auto-respawn.
 - Recovery if the managed browser dies: relaunch with `/opt/.devin/chrome/chrome/linux-*/chrome-linux64/chrome --remote-debugging-port=29229 --new-window <url>`. `browser_console` may still refuse to attach (it binds to the devin-remote-proxied endpoint) — drive CDP directly instead: python `websockets` is installed; `curl http://localhost:29229/json/list` → `webSocketDebuggerUrl` → `Runtime.evaluate`. Working helper: `/tmp/cdp_eval.py`.
-- To capture console errors across a run without the console tool: inject `window.addEventListener('error', fn, true)` + `unhandledrejection` collector into `window.__errlog` via Runtime.evaluate, then read it at the end.
+- To capture console errors across a run without the console tool: inject `window.addEventListener('error', fn, true)` + `unhandledrejection` collector into `window.__errlog` via Runtime.evaluate, then read it at the end. Re-inject after every page reload — the collector does not survive navigation.
+- CDP `Emulation.setDeviceMetricsOverride` is session-scoped: it drops the moment your websocket disconnects. For responsive screenshots, keep a background process holding the ws open (see `/tmp/cdp_hold_emulate.py`), screenshot while it runs, then reload the page to fully clear.
+- Screenshot-space → viewport-pixel mapping: `display_px = scaled * 1.5625` on this 1600x1200 box, and `viewport_y ≈ display_y - ~139` (browser chrome). When click coords matter (chips, FAB), read `getBoundingClientRect()` via CDP and convert rather than estimating from screenshots.
 
 ## Devin Secrets Needed
 - None — app is fully static and unauthenticated.
