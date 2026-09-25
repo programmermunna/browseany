@@ -62,6 +62,7 @@
   let favorites = [];      // array of { url, name, addedAt }
   let autoClickTimer = null; // auto-click timer interval
   let autoClickInterval = null; // auto-click interval in seconds
+  let fabMoved = false;      // set after a FAB drag to swallow the click
 
   const LOAD_TIMEOUT_MS = 6000;
   const LOADING_MESSAGES = [
@@ -103,6 +104,8 @@
   const landingRandomBtn = $('landingRandomBtn');
   const autoClickBtn    = $('autoClickBtn');
   const autoClickMenu   = $('autoClickMenu');
+  const fabRandomBtn    = $('fabRandomBtn');
+  const fabIcon         = $('fabIcon');
 
   /* ----------------------------------------------------------
      5. DATABASE INITIALIZATION
@@ -199,10 +202,12 @@
     loadingLabel.textContent = LOADING_MESSAGES[Math.floor(Math.random() * LOADING_MESSAGES.length)];
     loadingOverlay.classList.remove('hidden');
     randomDbIcon.classList.add('animate-spin');
+    fabIcon.classList.add('animate-spin');
   }
   function hideLoading() {
     loadingOverlay.classList.add('hidden');
     randomDbIcon.classList.remove('animate-spin');
+    fabIcon.classList.remove('animate-spin');
   }
   function showError() {
     hideLoading();
@@ -412,11 +417,87 @@
   }
 
   /* ----------------------------------------------------------
+     9. FLOATING RANDOM BUTTON — draggable FAB
+     ---------------------------------------------------------- */
+  const FAB_EDGE_PAD = 8;
+  const FAB_DRAG_THRESHOLD = 6;
+
+  function setFabPos(x, y) {
+    const maxX = window.innerWidth - fabRandomBtn.offsetWidth - FAB_EDGE_PAD;
+    const maxY = window.innerHeight - fabRandomBtn.offsetHeight - FAB_EDGE_PAD;
+    fabRandomBtn.style.left = Math.min(Math.max(FAB_EDGE_PAD, x), Math.max(FAB_EDGE_PAD, maxX)) + 'px';
+    fabRandomBtn.style.top = Math.min(Math.max(FAB_EDGE_PAD, y), Math.max(FAB_EDGE_PAD, maxY)) + 'px';
+    fabRandomBtn.style.right = 'auto';
+    fabRandomBtn.style.bottom = 'auto';
+  }
+
+  function initFab() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('browseany_fab_pos'));
+      if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+        setFabPos(saved.x, saved.y);
+      }
+    } catch (e) { /* keep default corner position */ }
+
+    let startX = 0, startY = 0, origX = 0, origY = 0;
+    let dragging = false;
+
+    fabRandomBtn.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      fabRandomBtn.setPointerCapture(e.pointerId);
+      const r = fabRandomBtn.getBoundingClientRect();
+      startX = e.clientX;
+      startY = e.clientY;
+      origX = r.left;
+      origY = r.top;
+      dragging = false;
+    });
+
+    fabRandomBtn.addEventListener('pointermove', (e) => {
+      if (!fabRandomBtn.hasPointerCapture(e.pointerId)) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (!dragging && Math.hypot(dx, dy) < FAB_DRAG_THRESHOLD) return;
+      dragging = true;
+      fabMoved = true;
+      fabRandomBtn.classList.add('dragging');
+      setFabPos(origX + dx, origY + dy);
+    });
+
+    function endDrag(e) {
+      if (!fabRandomBtn.hasPointerCapture(e.pointerId)) return;
+      fabRandomBtn.releasePointerCapture(e.pointerId);
+      fabRandomBtn.classList.remove('dragging');
+      if (dragging) {
+        dragging = false;
+        const r = fabRandomBtn.getBoundingClientRect();
+        localStorage.setItem('browseany_fab_pos', JSON.stringify({ x: r.left, y: r.top }));
+      }
+    }
+    fabRandomBtn.addEventListener('pointerup', endDrag);
+    fabRandomBtn.addEventListener('pointercancel', endDrag);
+
+    window.addEventListener('resize', () => {
+      const r = fabRandomBtn.getBoundingClientRect();
+      setFabPos(r.left, r.top);
+    });
+  }
+
+  function initLandingChips() {
+    document.querySelectorAll('.landing-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        categorySelect.value = chip.dataset.cat;
+        randomFromDb();
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
      8. KEYBOARD SHORTCUTS
      ---------------------------------------------------------- */
   function handleKeyboardShortcuts(e) {
-    // Ignore if user is typing in an input field
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+    // Ignore if user is typing in an input field or activating a control
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON' || e.target.isContentEditable) {
       return;
     }
 
@@ -559,6 +640,14 @@
   autoClickBtn.addEventListener('click', toggleAutoClick);
   autoClickMenu.addEventListener('click', handleAutoClickMenuClick);
 
+  fabRandomBtn.addEventListener('click', () => {
+    if (fabMoved) {
+      fabMoved = false;
+      return;
+    }
+    randomFromDb();
+  });
+
   // Close auto-click menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.auto-click-wrapper')) {
@@ -575,11 +664,15 @@
       initDatabase();
       loadFavorites();
       renderFavorites();
+      initFab();
+      initLandingChips();
     });
   } else {
     console.log('[DB] DOM already loaded, initializing database...');
     initDatabase();
     loadFavorites();
     renderFavorites();
+    initFab();
+    initLandingChips();
   }
 })();
