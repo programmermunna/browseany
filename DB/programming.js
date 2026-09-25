@@ -25,7 +25,6 @@ var DB_PROGRAMMING = [
   "https://gitlab.com/",
   "https://about.gitlab.com/",
   "https://yarnpkg.com/",
-  "https://repo.maven.apache.org/maven2",
   "https://gradle.org/",
   "https://travis-ci.org/",
   "https://docs.travis-ci.com/",

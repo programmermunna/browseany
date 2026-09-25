@@ -1,5 +1,4 @@
 var DB_SCIENCE = [
-  "https://www.nature.com/",
   "https://www.popsci.com/",
   "https://www.cern.ch/",
   "https://home.cern/",

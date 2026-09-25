@@ -1,6 +1,5 @@
 var DB_PHOTOGRAPHY = [
   "https://www.500px.com/",
-  "https://www.adobe.com/creativecloud/photography",
   "https://www.nikonusa.com/",
   "https://www.olympus.com/",
   "https://www.hasselblad.com/",
@@ -8,7 +7,6 @@ var DB_PHOTOGRAPHY = [
   "https://www.petapixel.com/",
   "https://www.popphoto.com/",
   "https://www.amateurphotographer.co.uk/",
-  "https://www.bjp-online.com/",
   "https://www.photographytalk.com/",
   "https://www.slrlounge.com/",
   "https://www.cnet.com/topics/cameras",

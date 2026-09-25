@@ -1,5 +1,4 @@
 var DB_STREAMING = [
-  "https://www.criterionchannel.com/",
   "https://www.sundance.tv/",
   "https://www.ifcfilms.com/",
   "https://www.magellantv.com/",
@@ -9,7 +8,6 @@ var DB_STREAMING = [
   "https://www.hoopla.us/",
   "https://www.dailymotion.com/",
   "https://www.mixcloud.com/",
-  "https://www.pandora.com/",
   "https://www.iheart.com/",
   "https://www.napster.com/",
 ];

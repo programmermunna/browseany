@@ -4,8 +4,6 @@ var DB_COMEDY = [
   "https://www.chrisrock.com/",
   "https://www.sarahsilverman.com/",
   "https://www.earwolf.com/",
-  "https://www.tbs.com/comedy",
-  "https://www.tntdrama.com/comedy",
   "https://www.hubpodcast.com/",
   "https://www.stitcher.com/comedy",
   "https://www.theonion.com/",
@@ -31,7 +29,6 @@ var DB_COMEDY = [
   "https://www.melbournecomedyfestival.com.au/",
   "https://www.asiancomedyfest.com/",
   "https://www.bristolcomedygarden.co.uk/",
-  "https://www.leicestercomedyfestival.com/",
   "https://www.halifaxcomedyfest.ca/",
   "https://www.bbc.co.uk/comedy",
   "https://www.dave.co.uk/",
@@ -39,5 +36,4 @@ var DB_COMEDY = [
   "https://www.comedyjam.com/",
   "https://www.laughtrack.com/",
   "https://www.comedyhour.com/",
-  "https://www.comedycentralnews.com/",
 ];
