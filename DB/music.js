@@ -1,8 +1,6 @@
 var DB_MUSIC = [
-  "https://www.pandora.com/",
   "https://www.iheart.com/",
   "https://www.napster.com/",
-  "https://www.pitchfork.com/",
   "https://www.consequence.net/",
   "https://www.stereogum.com/",
   "https://www.musicbrainz.org/",

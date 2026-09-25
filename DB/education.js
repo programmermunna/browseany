@@ -1,7 +1,6 @@
 var DB_EDUCATION = [
   "https://www.codecademy.com/",
   "https://www.code.org/",
-  "https://www.academyofideas.com/",
   "https://ocw.mit.edu/",
   "https://online.duke.edu/",
   "https://online.uga.edu/",

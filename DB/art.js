@@ -37,7 +37,6 @@ var DB_ART = [
   "https://www.artindia.com/",
   "https://www.arthonduras.com/",
   "https://www.artcuba.com/",
-  "https://www.arthaiti.com/",
   "https://www.artcayman.com/",
   "https://www.artcuracao.com/",
   "https://www.artnevis.com/",
